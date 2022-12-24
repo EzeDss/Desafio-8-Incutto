@@ -1,0 +1,33 @@
+#Crear base de datos
+1- use ecommerce
+#Crear Collection "Productos" y "Mensaje"
+2- db.createCollection("Productos")
+3- db.createCollection("Mensajes")
+#Insertar 10 Documentos en las Collection
+4- db.Productos.insertMany([{Nombre:"Sierra", Precio:100 , thumbnail: "google.com"},{Nombre:"Sierra1", Precio:350 , thumbnail: "google.com"},{Nombre:"Sierra2", Precio:560 , thumbnail: "google.com"},{Nombre:"Sierra3", Precio:880 , thumbnail: "google.com"},{Nombre:"Sierra4", Precio:1500 , thumbnail: "google.com"},{Nombre:"Sierra5", Precio:2300 , thumbnail: "google.com"},{Nombre:"Sierra6", Precio:3100 , thumbnail: "google.com"},{Nombre:"Sierra7", Precio:3800 , thumbnail: "google.com"},{Nombre:"Sierra8", Precio:4600 , thumbnail: "google.com"},{Nombre:"Sierra9", Precio:5000 , thumbnail: "google.com"}])
+5- db.Mensajes.insertMany([{Nombre:"Juan", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan1", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan2", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan3", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan4", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan5", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan6", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan7", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan8", Mensaje: "Hola", maill: "hola@google.com"},{Nombre:"Juan9", Mensaje: "Hola", maill: "hola@google.com"}])
+#Listar Collections
+6- db.Productos.find()
+7- db.Mensajes.find()
+#Mostrar cantidad de Documentos en cada Collection
+8- db.Productos.estimatedDocumentCount()
+9- db.Mensajes.estimatedDocumentCount()
+#CRUD
+#Agragar 1 producto mas a la Collection
+1- db.Productos.insertOne({Nombre:"Sierra10", Precio:120 , thumbnail: "google.com"})
+#Listar Productos con Precio <1000
+2- db.Productos.find({"Precio": {$lt: 1000}})
+#Listar Productos entra 1000 y 3000
+3- db.Productos.find({$and: [{"Precio": {$gt: 1000}}, {"Precio": {$lt: 3000}}]})
+#Listar Productos >3000
+4- db.Productos.find({"Precio": {$gt: 3000}})
+#Listar 3er producto mas barato
+5- db.Productos.find().sort({Precio:1}).limit(1).skip(2)
+#Actualizar todo los productos agregando campo stock con cantidad 100
+6- db.Productos.updateMany({}, {$set: {"Stock": 100}}, {upsert:true})
+#Cambiar stock a 0 de los productos con precio >4000
+7- db.Productos.updateMany({"Precio": {$gt: 4000}}, {$set: {"Stock": 0}})
+#Eliminar productos con precio <1000
+8- db.Productos.deleteMany({"Precio": {$lt: 1000}})
+#Agregar un usuario de solo lectura
+9- db.createUser({user:"pepe", pwd: "asd456", roles:[{role:"read", db: "ecommerce"}]})
